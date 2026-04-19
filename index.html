@@ -1,432 +1,950 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apis-IA | Domain-Focused AI Tools for Data-Driven Decisions</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Apis-IA — Data. Strategy. Intelligence.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  /* ── TOKENS ─────────────────────────────────────────── */
+  :root {
+    --bg:        oklch(0.97 0.006 80);
+    --bg2:       oklch(0.93 0.008 80);
+    --bg3:       oklch(0.89 0.009 80);
+    --line:      oklch(0.82 0.009 80);
+    --text:      oklch(0.18 0.012 260);
+    --muted:     oklch(0.48 0.012 260);
+    --gold:      oklch(0.58 0.17 62);
+    --teal:      oklch(0.50 0.14 198);
+    --ff-head:   'Space Grotesk', sans-serif;
+    --ff-mono:   'DM Mono', monospace;
+  }
+
+  /* ── RESET ──────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--ff-head);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* ── NAV ─────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem;
+    background: oklch(0.97 0.006 80 / 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line);
+    transition: padding .3s;
+  }
+  .nav-logo img { height: 44px; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--ff-mono);
+    font-size: .78rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    font-family: var(--ff-mono);
+    font-size: .78rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .55rem 1.4rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    transition: background .2s, color .2s;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--bg); }
+
+  /* ── HERO ────────────────────────────────────────────── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    overflow: hidden;
+  }
+  #hero-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+  }
+  .hero-eyebrow {
+    font-family: var(--ff-mono);
+    font-size: .78rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0; transform: translateY(16px);
+    animation: fadeUp .6s .3s forwards;
+    position: relative;
+  }
+  .hero-headline {
+    font-size: clamp(3.5rem, 8vw, 8rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -.03em;
+    max-width: 14ch;
+    opacity: 0; transform: translateY(24px);
+    animation: fadeUp .7s .5s forwards;
+    text-wrap: balance;
+    position: relative;
+  }
+  .hero-headline em {
+    font-style: normal;
+    color: var(--gold);
+  }
+  .hero-sub {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 48ch;
+    font-weight: 300;
+    opacity: 0; transform: translateY(16px);
+    animation: fadeUp .6s .75s forwards;
+    position: relative;
+  }
+  .hero-actions {
+    margin-top: 2.5rem;
+    display: flex; gap: 1rem; align-items: center;
+    opacity: 0;
+    animation: fadeUp .6s 1s forwards;
+    position: relative;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: .85rem 2.2rem;
+    background: var(--gold);
+    color: var(--bg);
+    font-family: var(--ff-mono);
+    font-size: .82rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: opacity .2s, transform .2s;
+  }
+  .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--ff-mono);
+    font-size: .82rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color .2s;
+  }
+  .btn-ghost:hover { color: var(--text); }
+  .btn-ghost::after { content: '↓'; }
+
+  .hero-stats {
+    position: absolute; bottom: 5rem; right: 3rem;
+    display: flex; gap: 3rem;
+    opacity: 0;
+    animation: fadeUp .6s 1.2s forwards;
+  }
+  .hero-stat-num {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    font-family: var(--ff-mono);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: .7rem;
+    font-family: var(--ff-mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: .3rem;
+  }
+
+  /* ── SECTION SHELL ───────────────────────────────────── */
+  section { padding: 7rem 3rem; }
+  .section-label {
+    font-family: var(--ff-mono);
+    font-size: .72rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.5rem;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── ABOUT ───────────────────────────────────────────── */
+  #about {
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .about-left .section-title { max-width: 18ch; }
+  .about-body {
+    font-size: 1.05rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 50ch;
+  }
+  .about-body strong { color: var(--text); font-weight: 500; }
+  .about-chips {
+    display: flex; flex-wrap: wrap; gap: .6rem;
+    margin-top: 2rem;
+  }
+  .chip {
+    font-family: var(--ff-mono);
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .35rem .85rem;
+    border: 1px solid var(--line);
+    color: var(--muted);
+  }
+
+  /* ── SOLUTIONS ───────────────────────────────────────── */
+  #solutions { border-top: 1px solid var(--line); }
+  .solutions-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 4rem;
+  }
+  .solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .sol-card {
+    background: var(--bg);
+    padding: 3rem 2.5rem;
+    display: flex; flex-direction: column;
+    transition: background .3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .sol-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+  }
+  .sol-card:hover { background: var(--bg2); }
+  .sol-card:hover::before { transform: scaleX(1); }
+  .sol-num {
+    font-family: var(--ff-mono);
+    font-size: .72rem;
+    letter-spacing: .15em;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+  .sol-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--line);
+  }
+  .sol-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    margin-bottom: .5rem;
+  }
+  .sol-tm {
+    font-size: .65rem;
+    vertical-align: super;
+    color: var(--gold);
+  }
+  .sol-tagline {
+    font-family: var(--ff-mono);
+    font-size: .78rem;
+    color: var(--teal);
+    letter-spacing: .08em;
+    margin-bottom: 1.5rem;
+  }
+  .sol-desc {
+    font-size: .9rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+    flex: 1;
+  }
+  .sol-features {
+    margin-top: 2rem;
+    list-style: none;
+    display: flex; flex-direction: column; gap: .5rem;
+  }
+  .sol-features li {
+    font-family: var(--ff-mono);
+    font-size: .72rem;
+    color: var(--muted);
+    letter-spacing: .05em;
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .sol-features li::before {
+    content: '';
+    width: 4px; height: 4px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ── PIPELINE ────────────────────────────────────────── */
+  #pipeline {
+    border-top: 1px solid var(--line);
+    background: var(--bg2);
+  }
+  .pipeline-header { margin-bottom: 5rem; }
+  .pipeline-flow {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr 60px 1fr;
+    align-items: center;
+    gap: 0;
+  }
+  .pipe-step {
+    padding: 3rem;
+    border: 1px solid var(--line);
+    position: relative;
+  }
+  .pipe-step:hover { border-color: var(--gold); }
+  .pipe-num {
+    font-family: var(--ff-mono);
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--line);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    transition: color .3s;
+  }
+  .pipe-step:hover .pipe-num { color: oklch(0.25 0.015 258); }
+  .pipe-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin-bottom: .75rem;
+    color: var(--gold);
+  }
+  .pipe-desc {
+    font-size: .9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .pipe-list {
+    margin-top: 1.5rem;
+    list-style: none;
+    display: flex; flex-direction: column; gap: .4rem;
+  }
+  .pipe-list li {
+    font-family: var(--ff-mono);
+    font-size: .72rem;
+    color: var(--muted);
+    letter-spacing: .06em;
+  }
+  .pipe-arrow {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--line);
+    font-size: 1.5rem;
+  }
+
+  /* ── FEATURES ────────────────────────────────────────── */
+  #features { border-top: 1px solid var(--line); }
+  .features-header { margin-bottom: 4rem; }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .feat-card {
+    background: var(--bg);
+    padding: 2.5rem;
+    transition: background .25s;
+  }
+  .feat-card:hover { background: var(--bg2); }
+  .feat-icon {
+    width: 36px; height: 36px;
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--gold);
+    font-size: .9rem;
+    font-family: var(--ff-mono);
+    transition: border-color .25s;
+  }
+  .feat-card:hover .feat-icon { border-color: var(--gold); }
+  .feat-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: .6rem;
+    letter-spacing: -.01em;
+  }
+  .feat-desc {
+    font-size: .85rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ── CONSUMER APPS ───────────────────────────────────── */
+  #apps { border-top: 1px solid var(--line); }
+  .apps-header { margin-bottom: 4rem; }
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .app-card {
+    border: 1px solid var(--line);
+    overflow: hidden;
+    transition: border-color .25s, background .25s;
+  }
+  .app-card:hover { border-color: var(--teal); background: var(--bg2); }
+  .app-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+  .app-card-body { padding: 1.5rem; }
+  .app-name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+  }
+  .app-desc {
+    font-size: .82rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* ── CONTACT ─────────────────────────────────────────── */
+  #contact {
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    background: var(--bg2);
+  }
+  .contact-left .section-title { max-width: 18ch; }
+  .contact-left .section-title em {
+    font-style: normal;
+    color: var(--gold);
+  }
+  .contact-note {
+    margin-top: 1.5rem;
+    font-size: .9rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 44ch;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-field { display: flex; flex-direction: column; gap: .4rem; }
+  .form-field label {
+    font-family: var(--ff-mono);
+    font-size: .7rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-family: var(--ff-head);
+    font-size: .9rem;
+    padding: .75rem 1rem;
+    outline: none;
+    transition: border-color .2s;
+    resize: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus,
+  .form-field select:focus { border-color: var(--gold); }
+  .form-field select option { background: var(--bg2); }
+  .form-submit {
+    align-self: flex-start;
+    padding: .9rem 2.5rem;
+    background: var(--gold);
+    color: var(--bg);
+    font-family: var(--ff-mono);
+    font-size: .82rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border: none; cursor: pointer;
+    transition: opacity .2s, transform .2s;
+  }
+  .form-submit:hover { opacity: .88; transform: translateY(-1px); }
+
+  /* ── FOOTER ──────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 2.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo img { height: 36px; }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a {
+    font-family: var(--ff-mono);
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--text); }
+  .footer-copy {
+    font-family: var(--ff-mono);
+    font-size: .7rem;
+    color: var(--muted);
+    letter-spacing: .08em;
+  }
+
+  /* ── ANIMATIONS ──────────────────────────────────────── */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    #hero { padding: 0 1.5rem 4rem; }
+    #about { grid-template-columns: 1fr; gap: 2.5rem; }
+    .solutions-grid { grid-template-columns: 1fr; }
+    .pipeline-flow { grid-template-columns: 1fr; }
+    .pipe-arrow { transform: rotate(90deg); }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .apps-grid { grid-template-columns: 1fr 1fr; }
+    #contact { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-stats { position: static; margin-top: 2.5rem; gap: 2rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+  @media (max-width: 600px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .apps-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
-
 <body>
-    <!-- Header -->
-    <header class="site-header">
-        <div class="container">
-            <a href="#" class="logo">
-                <img src="assets/novologoapis.png"
-                    alt="Apis-IA" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                <span class="logo-text" style="display:none"><i class="fa-solid fa-cube"></i> apis-ia</span>
-            </a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#visitassist">VisitAssist</a></li>
-                    <li><a href="#insightassist">InsightAssist</a></li>
-                    <li><a href="#carbonintel">CarbonIntel</a></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <a href="#contact" class="btn btn-primary">Contact</a>
-            </div>
-            <button class="mobile-menu-toggle">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-    </header>
 
-    <!-- Hero Slider -->
-    <section class="hero">
-        <div class="hero-slide active" style="background-image: url('assets/hero-bg.png');">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Connecting Data to<br>Decisions to Results</h1>
-                </div>
-            </div>
-        </div>
-        <div class="slider-controls">
-            <button class="prev-slide"><i class="fa-solid fa-chevron-left"></i></button>
-            <div class="slider-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-            </div>
-            <button class="next-slide"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-    </section>
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <img src="assets/novologoapis.png" alt="Apis-IA"/>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#pipeline">Method</a></li>
+    <li><a href="#apps">Apps</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in touch</a>
+</nav>
 
-    <!-- Intro Section -->
-    <section class="intro-section">
-        <div class="container">
-            <div class="ai-badge">
-                <i class="fa-solid fa-sparkles"></i> AI-POWERED INTELLIGENCE
-            </div>
-            <h2>From Data to Decisions</h2>
-            <p class="subtitle">Domain-specific AI solutions that retrieve, reason, and deliver</p>
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <p class="hero-eyebrow">AI-Powered Intelligence</p>
+  <h1 class="hero-headline">Connecting <em>Data</em> to Decisions to Results</h1>
+  <p class="hero-sub">Domain-specific AI solutions that retrieve, reason, and deliver. Built for organizations that can't afford to guess.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Start a project</a>
+    <a href="#solutions" class="btn-ghost">Explore solutions</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">99.9<span style="font-size:1rem">%</span></div>
+      <div class="hero-stat-label">Accuracy Rate</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">50<span style="font-size:1rem">+</span></div>
+      <div class="hero-stat-label">AI Models Deployed</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">100K<span style="font-size:1rem">+</span></div>
+      <div class="hero-stat-label">Queries / Day</div>
+    </div>
+  </div>
+</section>
 
-            <div class="intro-image">
-                <img src="assets/intro-bg.png" alt="AI Laboratory">
-            </div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <p class="section-label">Who we are</p>
+    <h2 class="section-title">Small shop.<br/>Big thinking.</h2>
+  </div>
+  <div class="reveal">
+    <p class="about-body">
+      At Apis-IA, we specialize in turning <strong>structured knowledge into clear, actionable results</strong>. Our advanced retrieval and reasoning systems help organizations, communities, and businesses deliver smarter experiences — without the overhead of a large consultancy.
+    </p>
+    <p class="about-body" style="margin-top:1rem">
+      We bring together <strong>data engineering, AI strategy, and product development</strong> under one roof. Focused, fast, and precise.
+    </p>
+    <div class="about-chips">
+      <span class="chip">Data Engineering</span>
+      <span class="chip">AI Strategy</span>
+      <span class="chip">RAG Pipelines</span>
+      <span class="chip">BI Dashboards</span>
+      <span class="chip">Product Dev</span>
+      <span class="chip">LLM Integration</span>
+    </div>
+  </div>
+</section>
 
-            <div class="intro-text-block">
-                <h3>Crafting AI-Powered Solutions</h3>
-                <p>At Apis-IA, we specialize in turning structured knowledge into clear, actionable results. Our
-                    advanced retrieval and reasoning systems help organizations, communities, and businesses deliver
-                    smarter experiences.</p>
+<!-- SOLUTIONS -->
+<section id="solutions">
+  <div class="solutions-header reveal">
+    <div>
+      <p class="section-label">Our solutions</p>
+      <h2 class="section-title">Tailored AI tools.<br/>Domain-specific precision.</h2>
+    </div>
+  </div>
+  <div class="solutions-grid reveal">
+    <div class="sol-card">
+      <div class="sol-num">01</div>
+      <img src="assets/visit-assist.png" alt="VisitAssist" class="sol-img"/>
+      <h3 class="sol-name">VisitAssist<span class="sol-tm">™</span></h3>
+      <p class="sol-tagline">Conversational AI for Public Engagement</p>
+      <p class="sol-desc">Empower your visitors with intelligent, domain-aware chatbots that provide instant, accurate answers drawn from your curated knowledge base.</p>
+      <ul class="sol-features">
+        <li>Natural language understanding</li>
+        <li>Multi-channel deployment</li>
+        <li>Real-time knowledge retrieval</li>
+        <li>Contextual conversations</li>
+      </ul>
+    </div>
+    <div class="sol-card">
+      <div class="sol-num">02</div>
+      <h3 class="sol-name">InsightAssist<span class="sol-tm">™</span></h3>
+      <p class="sol-tagline">Private BI Dashboards for Strategic Decisions</p>
+      <p class="sol-desc">Transform your data into actionable intelligence with custom dashboards that combine retrieval-augmented AI with powerful analytics.</p>
+      <ul class="sol-features">
+        <li>Custom data visualization</li>
+        <li>Predictive analytics</li>
+        <li>Secure private access</li>
+        <li>Real-time insights</li>
+      </ul>
+    </div>
+    <div class="sol-card">
+      <div class="sol-num">03</div>
+      <img src="assets/carbon-intel.png" alt="CarbonIntel" class="sol-img"/>
+      <h3 class="sol-name">CarbonIntel</h3>
+      <p class="sol-tagline">Carbon Market Intelligence Platform</p>
+      <p class="sol-desc">Stay ahead in the carbon market with comprehensive news aggregation and business intelligence unified in a single, powerful platform.</p>
+      <ul class="sol-features">
+        <li>Real-time carbon market news</li>
+        <li>Industry trend analysis</li>
+        <li>Market intelligence reports</li>
+        <li>Regulatory updates tracking</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-                <div class="intro-cards">
-                    <div class="intro-card">
-                        <div class="icon-box green"><i class="fa-regular fa-comments"></i></div>
-                        <h4>Dynamic Chat</h4>
-                        <p>Conversational AI assistants</p>
-                    </div>
-                    <div class="intro-card">
-                        <div class="icon-box blue"><i class="fa-solid fa-table-columns"></i></div>
-                        <h4>Strategic Insights</h4>
-                        <p>Business intelligence platforms</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- PIPELINE -->
+<section id="pipeline">
+  <div class="pipeline-header reveal">
+    <p class="section-label">How we work</p>
+    <h2 class="section-title">Three-pillar methodology.</h2>
+  </div>
+  <div class="pipeline-flow reveal">
+    <div class="pipe-step">
+      <div class="pipe-num">01</div>
+      <div class="pipe-title">Retrieve</div>
+      <p class="pipe-desc">Advanced semantic search across your structured knowledge base, ensuring relevant information is always available.</p>
+      <ul class="pipe-list">
+        <li>— Vector-based semantic search</li>
+        <li>— Multi-source data integration</li>
+        <li>— Real-time indexing</li>
+        <li>— Context-aware retrieval</li>
+      </ul>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step">
+      <div class="pipe-num">02</div>
+      <div class="pipe-title">Reason</div>
+      <p class="pipe-desc">Sophisticated AI models that understand context, draw connections, and generate insights from complex data patterns.</p>
+      <ul class="pipe-list">
+        <li>— Natural language processing</li>
+        <li>— Contextual understanding</li>
+        <li>— Pattern recognition</li>
+        <li>— Logical inference</li>
+      </ul>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step">
+      <div class="pipe-num">03</div>
+      <div class="pipe-title">Deliver</div>
+      <p class="pipe-desc">Present actionable insights through intuitive interfaces — conversational chat, visual dashboards, or API integrations.</p>
+      <ul class="pipe-list">
+        <li>— Multi-channel delivery</li>
+        <li>— Personalized responses</li>
+        <li>— Interactive visualizations</li>
+        <li>— Seamless integration</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fa-solid fa-check-double"></i></div>
-                    <div class="stat-number">99.9%</div>
-                    <div class="stat-label">Accuracy Rate</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fa-solid fa-robot"></i></div>
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">AI Models Deployed</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fa-regular fa-clock"></i></div>
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">System Availability</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fa-solid fa-chart-simple"></i></div>
-                    <div class="stat-number">100K+</div>
-                    <div class="stat-label">Queries Processed Daily</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- FEATURES -->
+<section id="features">
+  <div class="features-header reveal">
+    <p class="section-label">Why Apis-IA</p>
+    <h2 class="section-title">Built for precision.<br/>Designed for impact.</h2>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feat-card">
+      <div class="feat-icon">AI</div>
+      <h4 class="feat-title">Domain-Focused AI</h4>
+      <p class="feat-desc">Customized for your sector with specialized knowledge, terminology, and workflows — not a generic model.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">⇄</div>
+      <h4 class="feat-title">Flexible Delivery</h4>
+      <p class="feat-desc">Public chatbots or private BI dashboards — we tailor the output layer to your users and infrastructure.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">RAG</div>
+      <h4 class="feat-title">RAG Pipeline</h4>
+      <p class="feat-desc">Retrieval-augmented generation ensures accuracy and reliability — zero hallucinations on grounded data.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">∞</div>
+      <h4 class="feat-title">Full Customization</h4>
+      <p class="feat-desc">Scalable solutions that grow with your business. From MVP to enterprise scale without architectural rewrites.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">UX</div>
+      <h4 class="feat-title">Human-Centered Design</h4>
+      <p class="feat-desc">Maximum usability with intuitive interfaces for all user levels. Technology that feels effortless.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🔒</div>
+      <h4 class="feat-title">Enterprise Security</h4>
+      <p class="feat-desc">Bank-level encryption and data protection standards. Your data stays yours, always.</p>
+    </div>
+  </div>
+</section>
 
-    <!-- Solutions Header -->
-    <section class="solutions-header">
-        <div class="container">
-            <h2>Our Solutions</h2>
-            <p>Tailored AI tools designed to meet your specific domain needs</p>
-        </div>
-    </section>
+<!-- CONSUMER APPS -->
+<section id="apps">
+  <div class="apps-header reveal">
+    <p class="section-label">Consumer apps</p>
+    <h2 class="section-title">Beyond enterprise.</h2>
+  </div>
+  <div class="apps-grid reveal">
+    <div class="app-card">
+      <img src="assets/toonli.png" alt="Toonli" class="app-card-img"/>
+      <div class="app-card-body">
+        <h4 class="app-name">Toonli</h4>
+        <p class="app-desc">Transform photos into stunning cartoon-style artwork with AI-powered illustration technology.</p>
+      </div>
+    </div>
+    <div class="app-card">
+      <img src="assets/culinary.png" alt="Culinary Vision AI" class="app-card-img"/>
+      <div class="app-card-body">
+        <h4 class="app-name">Culinary Vision AI</h4>
+        <p class="app-desc">Snap a photo of any dish and instantly discover recipes, ingredients, and cooking techniques.</p>
+      </div>
+    </div>
+    <div class="app-card">
+      <img src="assets/food-trails.png" alt="Food Trails" class="app-card-img"/>
+      <div class="app-card-body">
+        <h4 class="app-name">Food Trails</h4>
+        <p class="app-desc">Discover hidden culinary gems and create personalized food tours in your city.</p>
+      </div>
+    </div>
+    <div class="app-card">
+      <img src="assets/pet-agenda.png" alt="Pet Agenda" class="app-card-img"/>
+      <div class="app-card-body">
+        <h4 class="app-name">Pet Agenda</h4>
+        <p class="app-desc">Comprehensive pet care management with health tracking, appointments, and activity logs.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- VisitAssist Section -->
-    <section id="visitassist" class="product-section">
-        <div class="container">
-            <div class="product-content">
-                <div class="product-info">
-                    <div class="product-icon teal"><i class="fa-solid fa-headset"></i></div>
-                    <h3>VisitAssist™</h3>
-                    <p class="product-tagline">Conversational AI for Public Engagement</p>
-                    <p class="product-description">Empower your visitors with intelligent, domain-aware chatbots that
-                        provide instant, accurate answers drawn from your curated knowledge base.</p>
-                    <ul class="product-features">
-                        <li><i class="fa-solid fa-circle-check"></i> Natural language understanding</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Multi-channel deployment</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Real-time knowledge retrieval</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Contextual conversations</li>
-                    </ul>
-                    <a href="#" class="btn btn-dark">Learn More <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-                <div class="product-image">
-                    <img src="assets/visit-assist.png" alt="VisitAssist UI">
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left reveal">
+    <p class="section-label">Let's talk</p>
+    <h2 class="section-title">Ready to transform your <em>data</em>?</h2>
+    <p class="contact-note">Tell us about your challenge. We'll respond within one business day with an honest assessment of how we can help.</p>
+  </div>
+  <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <div class="form-field">
+        <label>Name</label>
+        <input type="text" placeholder="Your name"/>
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" placeholder="you@company.com"/>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>I'm interested in</label>
+      <select>
+        <option value="">Select a solution</option>
+        <option>VisitAssist — Conversational AI</option>
+        <option>InsightAssist — BI Dashboards</option>
+        <option>CarbonIntel — Market Intelligence</option>
+        <option>Custom AI Development</option>
+        <option>AI Strategy Consulting</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label>Tell us about your project</label>
+      <textarea rows="4" placeholder="Describe your data challenge or what you're trying to build..."></textarea>
+    </div>
+    <button type="submit" class="form-submit">Send message →</button>
+  </form>
+</section>
 
-    <!-- InsightAssist Section -->
-    <section id="insightassist" class="product-section reverse">
-        <div class="container">
-            <div class="product-content">
-                <div class="product-info">
-                    <div class="product-icon blue"><i class="fa-solid fa-chart-line"></i></div>
-                    <h3>InsightAssist™</h3>
-                    <p class="product-tagline">Private BI Dashboards for Strategic Decisions</p>
-                    <p class="product-description">Transform your data into actionable intelligence with custom
-                        dashboards that combine retrieval-augmented AI with powerful analytics.</p>
-                    <ul class="product-features">
-                        <li><i class="fa-solid fa-circle-check"></i> Custom data visualization</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Predictive analytics</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Secure private access</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Real-time insights</li>
-                    </ul>
-                    <a href="#" class="btn btn-dark">Learn More <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-                <div class="product-image">
-                    <div class="placeholder-ui"
-                        style="background: linear-gradient(135deg, #1e293b, #0f172a); height: 400px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white;">
-                        <i class="fa-solid fa-chart-pie" style="font-size: 4rem; opacity: 0.5;"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="assets/novologoapis.png" alt="Apis-IA"/>
+  </div>
+  <div class="footer-links">
+    <a href="#solutions">Solutions</a>
+    <a href="#pipeline">Method</a>
+    <a href="#apps">Apps</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 Apis-IA. All rights reserved.</div>
+</footer>
 
-    <!-- CarbonIntel Section -->
-    <section id="carbonintel" class="product-section">
-        <div class="container">
-            <div class="product-content">
-                <div class="product-info">
-                    <div class="product-icon indigo"><i class="fa-solid fa-globe"></i></div>
-                    <h3>CarbonIntel</h3>
-                    <p class="product-tagline">News and Intelligence Platform for the Carbon Industry</p>
-                    <p class="product-description">Stay ahead in the carbon market with comprehensive news aggregation
-                        and business intelligence unified in a single, powerful platform.</p>
-                    <ul class="product-features">
-                        <li><i class="fa-solid fa-circle-check"></i> Real-time carbon market news</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Industry trend analysis</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Market intelligence reports</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Regulatory updates tracking</li>
-                    </ul>
-                    <a href="#" class="btn btn-dark">Learn More <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-                <div class="product-image">
-                    <img src="assets/carbon-intel.png" alt="CarbonIntel UI">
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+/* ── CANVAS PARTICLE ANIMATION ─────────────────────────── */
+(function(){
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [];
+  const N = 60;
 
-    <!-- How We Work Section -->
-    <section class="how-we-work-section">
-        <div class="container">
-            <div class="section-header-center">
-                <h2>How We Work</h2>
-                <p>Our three-pillar approach to AI-powered intelligence</p>
-            </div>
-            <div class="process-grid">
-                <!-- Step 1 -->
-                <div class="process-card">
-                    <div class="process-icon teal"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    <h3>Retrieve</h3>
-                    <p>Advanced semantic search across your structured knowledge base, ensuring relevant information is
-                        always at your fingertips.</p>
-                    <ul class="process-list">
-                        <li><i class="fa-solid fa-chevron-right"></i> Vector-based semantic search</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Multi-source data integration</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Real-time indexing</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Context-aware retrieval</li>
-                    </ul>
-                </div>
-                <!-- Step 2 -->
-                <div class="process-card">
-                    <div class="process-icon blue"><i class="fa-solid fa-brain"></i></div>
-                    <h3>Reason</h3>
-                    <p>Sophisticated AI models that understand context, draw connections, and generate insights from
-                        complex data patterns.</p>
-                    <ul class="process-list">
-                        <li><i class="fa-solid fa-chevron-right"></i> Natural language processing</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Contextual understanding</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Pattern recognition</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Logical inference</li>
-                    </ul>
-                </div>
-                <!-- Step 3 -->
-                <div class="process-card">
-                    <div class="process-icon indigo"><i class="fa-solid fa-rocket"></i></div>
-                    <h3>Deliver</h3>
-                    <p>Present actionable insights through intuitive interfaces, whether conversational chat or visual
-                        dashboards.</p>
-                    <ul class="process-list">
-                        <li><i class="fa-solid fa-chevron-right"></i> Multi-channel delivery</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Personalized responses</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Interactive visualizations</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Seamless integration</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+  function resize(){
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
 
-    <!-- Built for Precision Section -->
-    <section class="precision-section">
-        <div class="container">
-            <div class="section-header-center">
-                <h2>Built for Precision. Designed for Impact.</h2>
-                <p>Enterprise-grade features that set us apart</p>
-            </div>
-            <div class="features-grid-3">
-                <div class="feature-box">
-                    <div class="feature-box-icon teal"><i class="fa-solid fa-crosshairs"></i></div>
-                    <h4>Domain-Focused AI</h4>
-                    <p>Customized for your sector with specialized knowledge and terminology</p>
-                </div>
-                <div class="feature-box">
-                    <div class="feature-box-icon blue"><i class="fa-solid fa-cubes-stacked"></i></div>
-                    <h4>Flexible Delivery</h4>
-                    <p>Public chatbots or private BI dashboards tailored to your needs</p>
-                </div>
-                <div class="feature-box">
-                    <div class="feature-box-icon indigo"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h4>Retrieval-Augmented Pipeline</h4>
-                    <p>Accuracy and reliability with zero hallucinations</p>
-                </div>
-                <div class="feature-box">
-                    <div class="feature-box-icon teal"><i class="fa-solid fa-sliders"></i></div>
-                    <h4>Full Customization</h4>
-                    <p>Scalable solutions that grow with your business requirements</p>
-                </div>
-                <div class="feature-box">
-                    <div class="feature-box-icon blue"><i class="fa-solid fa-user-group"></i></div>
-                    <h4>Human-Centered Design</h4>
-                    <p>Maximum usability with intuitive interfaces for all user levels</p>
-                </div>
-                <div class="feature-box">
-                    <div class="feature-box-icon indigo"><i class="fa-solid fa-lock"></i></div>
-                    <h4>Enterprise Security</h4>
-                    <p>Bank-level encryption and data protection standards</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  for(let i=0; i<N; i++){
+    nodes.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      vx: (Math.random()-.5)*.3,
+      vy: (Math.random()-.5)*.3,
+      r: Math.random()*1.5+.5
+    });
+  }
 
-    <!-- Consumer Apps Section -->
-    <section class="consumer-apps-section">
-        <div class="container">
-            <div class="section-header-center">
-                <h2>Consumer Apps</h2>
-                <p>Innovative web applications designed to enhance everyday experiences</p>
-            </div>
-            <div class="apps-grid">
-                <!-- App 1 -->
-                <div class="app-card">
-                    <div class="app-image">
-                        <img src="assets/toonli.png" alt="Toonli App">
-                        <div class="app-icon-overlay pink"><i class="fa-solid fa-palette"></i></div>
-                    </div>
-                    <div class="app-content">
-                        <h4>Toonli</h4>
-                        <p>Transform your photos into stunning cartoon-style artwork with AI-powered illustration
-                            technology</p>
-                    </div>
-                </div>
-                <!-- App 2 -->
-                <div class="app-card">
-                    <div class="app-image">
-                        <img src="assets/culinary.png" alt="Culinary Vision AI">
-                        <div class="app-icon-overlay orange"><i class="fa-solid fa-utensils"></i></div>
-                    </div>
-                    <div class="app-content">
-                        <h4>Culinary Vision AI</h4>
-                        <p>Snap a photo of any dish and instantly discover recipes, ingredients, and cooking techniques
-                        </p>
-                    </div>
-                </div>
-                <!-- App 3 -->
-                <div class="app-card">
-                    <div class="app-image">
-                        <img src="assets/food-trails.png" alt="Food Trails">
-                        <div class="app-icon-overlay red"><i class="fa-solid fa-location-dot"></i></div>
-                    </div>
-                    <div class="app-content">
-                        <h4>Food Trails</h4>
-                        <p>Discover hidden culinary gems and create personalized food tours in your city</p>
-                    </div>
-                </div>
-                <!-- App 4 -->
-                <div class="app-card">
-                    <div class="app-image">
-                        <img src="assets/pet-agenda.png" alt="Pet Agenda">
-                        <div class="app-icon-overlay purple"><i class="fa-solid fa-paw"></i></div>
-                    </div>
-                    <div class="app-content">
-                        <h4>Pet Agenda</h4>
-                        <p>Comprehensive pet care management with health tracking, appointments, and activity logs</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle = 'rgba(100,110,140,0.12)';
+    ctx.lineWidth = .5;
+    const gs = 80;
+    for(let x=0; x<W; x+=gs){
+      ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
+    }
+    for(let y=0; y<H; y+=gs){
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+    }
+    for(let i=0; i<nodes.length; i++){
+      for(let j=i+1; j<nodes.length; j++){
+        const dx = nodes[i].x-nodes[j].x;
+        const dy = nodes[i].y-nodes[j].y;
+        const dist = Math.sqrt(dx*dx+dy*dy);
+        if(dist < 140){
+          const alpha = (1-dist/140)*.35;
+          ctx.strokeStyle = `rgba(212,168,75,${alpha})`;
+          ctx.lineWidth = .6;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    nodes.forEach(n => {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(212,168,75,0.7)';
+      ctx.fill();
+      n.x += n.vx; n.y += n.vy;
+      if(n.x<0||n.x>W) n.vx*=-1;
+      if(n.y<0||n.y>H) n.vy*=-1;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 
-    <!-- CTA Section 1 -->
-    <section class="cta-section-teal">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Ready to Leverage Our Expertise?</h2>
-                <p>Let's discuss how our technical capabilities can transform your business</p>
-                <a href="#contact" class="btn btn-white">Schedule a Consultation</a>
-            </div>
-        </div>
-    </section>
+/* ── SCROLL REVEAL ──────────────────────────────────────── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if(e.isIntersecting){
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: .12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    <!-- CTA Section 2 -->
-    <section class="cta-section-dark">
-        <div class="container">
-            <div class="cta-content-center">
-                <div class="cta-badge">GET STARTED TODAY</div>
-                <h2>Ready to Transform Your Data<br>into Intelligence?</h2>
-                <p>Let's discuss how our AI solutions can help you deliver smarter experiences to your users and unlock
-                    actionable insights from your data.</p>
-                <div class="cta-buttons">
-                    <a href="#contact" class="btn btn-primary">Schedule a Consultation <i
-                            class="fa-solid fa-arrow-right"></i></a>
-                    <a href="#solutions" class="btn btn-outline">Explore Solutions <i
-                            class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                </div>
-                <div class="cta-features">
-                    <div class="cta-feature">
-                        <h4>Fast</h4>
-                        <p>Quick deployment</p>
-                    </div>
-                    <div class="cta-feature">
-                        <h4>Secure</h4>
-                        <p>Enterprise-grade</p>
-                    </div>
-                    <div class="cta-feature">
-                        <h4>Scalable</h4>
-                        <p>Grows with you</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-top">
-                <a href="#" class="logo">
-                    <img src="assets/novologoapis.png" alt="Apis-IA">
-                </a>
-                <div class="footer-nav">
-                    <a href="#visitassist">VisitAssist</a>
-                    <a href="#insightassist">InsightAssist</a>
-                    <a href="#carbonintel">CarbonIntel</a>
-                    <a href="#contact">Contact</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Apis-IA. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#"><i class="fa-brands fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+/* ── FORM SUBMIT ────────────────────────────────────────── */
+function handleSubmit(e){
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = 'Message sent ✓';
+  btn.style.background = 'var(--teal)';
+  setTimeout(() => {
+    btn.textContent = 'Send message →';
+    btn.style.background = 'var(--gold)';
+    e.target.reset();
+  }, 3000);
+}
+</script>
 </body>
-
 </html>
