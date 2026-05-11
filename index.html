@@ -224,6 +224,69 @@
     color: var(--muted);
   }
 
+  /* ── FOUNDER ─────────────────────────────────────────── */
+  #founder {
+    border-top: 1px solid var(--line);
+    background: var(--bg2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .founder-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin: 1.2rem 0 .4rem;
+  }
+  .founder-role {
+    font-family: var(--ff-mono);
+    font-size: .78rem;
+    color: var(--teal);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .founder-bio {
+    font-size: .95rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  .founder-bio strong { color: var(--text); font-weight: 500; }
+  .founder-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .tl-year {
+    font-family: var(--ff-mono);
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding-top: .15rem;
+  }
+  .tl-desc {
+    font-size: .88rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.65;
+    border-left: 1px solid var(--line);
+    padding-left: 1.25rem;
+  }
+  .tl-desc strong { color: var(--text); font-weight: 500; }
+  .stack-strip {
+    display: flex; flex-wrap: wrap; gap: .5rem;
+    margin-top: 2rem;
+  }
+
   /* ── SOLUTIONS ───────────────────────────────────────── */
   #solutions { border-top: 1px solid var(--line); }
   .solutions-header {
@@ -313,6 +376,30 @@
     width: 4px; height: 4px;
     background: var(--gold);
     flex-shrink: 0;
+  }
+  .sol-deployments {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .sol-deploy-label {
+    font-family: var(--ff-mono);
+    font-size: .65rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .75rem;
+  }
+  .sol-deploy-tags {
+    display: flex; flex-wrap: wrap; gap: .4rem;
+  }
+  .deploy-tag {
+    font-family: var(--ff-mono);
+    font-size: .65rem;
+    letter-spacing: .06em;
+    padding: .2rem .6rem;
+    border: 1px solid var(--line);
+    color: var(--muted);
   }
 
   /* ── PIPELINE ────────────────────────────────────────── */
@@ -413,37 +500,48 @@
     line-height: 1.7;
   }
 
-  /* ── CONSUMER APPS ───────────────────────────────────── */
-  #apps { border-top: 1px solid var(--line); }
-  .apps-header { margin-bottom: 4rem; }
-  .apps-grid {
+  /* ── PORTFOLIO ───────────────────────────────────────── */
+  #portfolio { border-top: 1px solid var(--line); }
+  .portfolio-header { margin-bottom: 4rem; }
+  .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-  }
-  .app-card {
+    gap: 1px;
+    background: var(--line);
     border: 1px solid var(--line);
-    overflow: hidden;
-    transition: border-color .25s, background .25s;
   }
-  .app-card:hover { border-color: var(--teal); background: var(--bg2); }
-  .app-card-img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
+  .port-card {
+    background: var(--bg);
+    padding: 2.5rem 2rem;
+    transition: background .25s;
   }
-  .app-card-body { padding: 1.5rem; }
-  .app-name {
-    font-size: 1rem;
+  .port-card:hover { background: var(--bg2); }
+  .port-cluster {
+    font-family: var(--ff-mono);
+    font-size: .65rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: .75rem;
+  }
+  .port-name {
+    font-size: 1.1rem;
     font-weight: 600;
+    letter-spacing: -.01em;
     margin-bottom: .5rem;
   }
-  .app-desc {
-    font-size: .82rem;
+  .port-stack {
+    font-family: var(--ff-mono);
+    font-size: .68rem;
+    color: var(--gold);
+    letter-spacing: .06em;
+    margin-bottom: 1rem;
+  }
+  .port-desc {
+    font-size: .83rem;
     color: var(--muted);
     font-weight: 300;
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
   /* ── CONTACT ─────────────────────────────────────────── */
@@ -551,11 +649,12 @@
     section { padding: 5rem 1.5rem; }
     #hero { padding: 0 1.5rem 4rem; }
     #about { grid-template-columns: 1fr; gap: 2.5rem; }
+    #founder { grid-template-columns: 1fr; gap: 2.5rem; }
     .solutions-grid { grid-template-columns: 1fr; }
     .pipeline-flow { grid-template-columns: 1fr; }
     .pipe-arrow { transform: rotate(90deg); }
     .features-grid { grid-template-columns: 1fr 1fr; }
-    .apps-grid { grid-template-columns: 1fr 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
     #contact { grid-template-columns: 1fr; gap: 3rem; }
     .hero-stats { position: static; margin-top: 2.5rem; gap: 2rem; }
     footer { flex-direction: column; gap: 1.5rem; text-align: center; }
@@ -563,7 +662,7 @@
   }
   @media (max-width: 600px) {
     .features-grid { grid-template-columns: 1fr; }
-    .apps-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
   }
 </style>
@@ -579,6 +678,7 @@
     <li><a href="#agents">Agents</a></li>
     <li><a href="#intelligence">Intelligence</a></li>
     <li><a href="#complexity">Complexity</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Get in touch</a>
 </nav>
@@ -586,25 +686,25 @@
 <!-- HERO -->
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
-  <p class="hero-eyebrow">AI-Powered Intelligence</p>
-  <h1 class="hero-headline">AI for <em>Interaction</em>, Intelligence, and Immersion</h1>
-  <p class="hero-sub">We build advanced AI products across intelligent agents, decision-support systems, and immersive educational experiences.</p>
+  <p class="hero-eyebrow">Data. Strategy. Intelligence.</p>
+  <h1 class="hero-headline">AI that <em>works</em> in the real world.</h1>
+  <p class="hero-sub">We build production-grade AI systems across three domains: intelligent agents, decision-support platforms, and immersive digital experiences — deployed across four continents.</p>
   <div class="hero-actions">
     <a href="#contact" class="btn-primary">Start a project</a>
-    <a href="#agents" class="btn-ghost">Explore our pillars</a>
+    <a href="#agents" class="btn-ghost">Explore our work</a>
   </div>
   <div class="hero-stats">
     <div class="hero-stat">
+      <div class="hero-stat-num">52<span style="font-size:1rem">+</span></div>
+      <div class="hero-stat-label">Active AI Deployments</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">10<span style="font-size:1rem">+</span></div>
+      <div class="hero-stat-label">Products Delivered</div>
+    </div>
+    <div class="hero-stat">
       <div class="hero-stat-num">99.9<span style="font-size:1rem">%</span></div>
       <div class="hero-stat-label">Accuracy Rate</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">50<span style="font-size:1rem">+</span></div>
-      <div class="hero-stat-label">AI Models Deployed</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">100K<span style="font-size:1rem">+</span></div>
-      <div class="hero-stat-label">Queries / Day</div>
     </div>
   </div>
 </section>
@@ -613,22 +713,63 @@
 <section id="about">
   <div class="about-left reveal">
     <p class="section-label">Who we are</p>
-    <h2 class="section-title">Small shop.<br/>Big thinking.</h2>
+    <h2 class="section-title">Lean team.<br/>Production scale.</h2>
   </div>
   <div class="reveal">
     <p class="about-body">
-      At Apis-IA, we specialize in building AI products across three distinct areas: <strong>intelligent agents, decision-support systems, and immersive educational experiences</strong>. We turn complex data and difficult subjects into structured, explorable worlds.
+      Apis-IA is an AI product studio focused on intelligent, data-driven software across three strategic pillars. Operating as a <strong>lean, high-precision team</strong>, we combine deep expertise in large language model integration, retrieval-augmented generation (RAG), full-stack engineering, and human-centered product design to deliver production-grade solutions for public and private sector clients across four continents.
     </p>
     <p class="about-body" style="margin-top:1rem">
-      We bring together <strong>data engineering, AI strategy, and immersive product design</strong> under one roof. Focused, fast, and precise.
+      Our portfolio spans <strong>52+ active AI deployments</strong> and projects with tourism boards, hotel groups, national parks, airlines, educational institutions, environmental agencies, and enterprise intelligence platforms — each built for scalability, domain awareness, and architectural soundness.
     </p>
     <div class="about-chips">
-      <span class="chip">AI Agents</span>
-      <span class="chip">RAG Intelligence</span>
-      <span class="chip">Immersive Learning</span>
+      <span class="chip">AI &amp; LLM Integration</span>
       <span class="chip">Data Engineering</span>
-      <span class="chip">Product Dev</span>
-      <span class="chip">LLM Integration</span>
+      <span class="chip">PWA &amp; Mobile</span>
+      <span class="chip">Full-Stack Delivery</span>
+      <span class="chip">AI Agent Design</span>
+      <span class="chip">Cloud &amp; DevOps</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder">
+  <div class="reveal">
+    <p class="section-label">The Founder</p>
+    <h2 class="section-title">Three decades of engineering.</h2>
+    <p class="founder-name">Fernando Lopez</p>
+    <p class="founder-role">Founder &amp; Technical Lead</p>
+    <p class="founder-bio">
+      Fernando brings <strong>30+ years of continuous software engineering</strong> — from the early commercial internet to today's AI-driven product generation. His background combines rare depth across the full arc of web development, with the commercial instinct of a founder and hands-on engineering experience across two continents.
+    </p>
+    <div class="stack-strip">
+      <span class="chip">ColdFusion</span>
+      <span class="chip">Java</span>
+      <span class="chip">C# / .NET</span>
+      <span class="chip">MS SQL Server</span>
+      <span class="chip">Front-end</span>
+      <span class="chip">Back-end</span>
+      <span class="chip">E-Commerce</span>
+      <span class="chip">AI / LLM</span>
+    </div>
+  </div>
+  <div class="founder-timeline reveal">
+    <div class="tl-item">
+      <div class="tl-year">Early 1990s</div>
+      <div class="tl-desc">Started in technology in <strong>Brazil</strong>, building foundational software engineering skills during the rapid expansion of commercial computing.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1996 — US</div>
+      <div class="tl-desc">Led development of <strong>foodtrade.com</strong>, one of the first vertical sites dedicated to international food trade — predating mainstream e-commerce.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1996–2014</div>
+      <div class="tl-desc">18 years delivering projects across the full evolution of web development: <strong>ColdFusion, Java, C#/.NET, MS SQL Server</strong>, modern frontend and backend. Built and operated an independent e-commerce platform.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">Today</div>
+      <div class="tl-desc">Recognized the transformative potential of LLMs and generative AI. Founded <strong>Apis-IA</strong> with deliberate focus on AI-driven engineering — leading technical strategy and product delivery across multiple sectors and geographies.</div>
     </div>
   </div>
 </section>
@@ -638,8 +779,8 @@
   <div class="solutions-header reveal">
     <div>
       <p class="section-label">Pillar 01 — Agents</p>
-      <h2 class="section-title">Guided interaction.<br/>Intelligent support.</h2>
-      <p class="about-body" style="margin-top:1.5rem">AI agents for tourism, visitor support, and consumer engagement. Domain-aware assistants that never sleep.</p>
+      <h2 class="section-title">Domain-aware agents.<br/>Zero hallucination.</h2>
+      <p class="about-body" style="margin-top:1.5rem">Conversational AI systems configured with domain-specific knowledge, terminology, and retrieval logic — built for tourism, hospitality, public services, and consumer engagement.</p>
     </div>
   </div>
   <div class="solutions-grid reveal">
@@ -647,36 +788,48 @@
       <div class="sol-num">01</div>
       <img src="assets/visit-assist.png" alt="VisitAssist" class="sol-img" onerror="this.style.display='none'"/>
       <h3 class="sol-name">VisitAssist<span class="sol-tm">™</span></h3>
-      <p class="sol-tagline">Conversational AI for Public Engagement</p>
-      <p class="sol-desc">Empower your visitors with intelligent, domain-aware chatbots that provide instant, accurate answers drawn from your curated knowledge base.</p>
+      <p class="sol-tagline">Multi-Tenant Conversational AI Platform</p>
+      <p class="sol-desc">The flagship platform behind 52+ active deployments across tourism boards, national parks, luxury hotels, airlines, and public libraries on four continents. Built on a semantic RAG pipeline, VisitAssist delivers instant, factually-grounded answers from curated knowledge bases — with zero hallucination on verified data.</p>
       <ul class="sol-features">
-        <li>Natural language understanding</li>
-        <li>Multi-channel deployment</li>
-        <li>Real-time knowledge retrieval</li>
+        <li>Semantic RAG pipeline</li>
+        <li>Multi-tenant scalable architecture</li>
+        <li>Web embed, PWA &amp; deep link deployment</li>
+        <li>Per-instance knowledge base &amp; brand config</li>
       </ul>
+      <div class="sol-deployments">
+        <p class="sol-deploy-label">Deployment variants</p>
+        <div class="sol-deploy-tags">
+          <span class="deploy-tag">VisitAssist — Tourism</span>
+          <span class="deploy-tag">GuestAssist — Hospitality</span>
+          <span class="deploy-tag">BiblioTecno — STEM Education</span>
+          <span class="deploy-tag">Global Pilots — 4 Continents</span>
+        </div>
+      </div>
     </div>
     <div class="sol-card">
       <div class="sol-num">02</div>
       <img src="assets/toonli.png" alt="Toonli" class="sol-img" onerror="this.style.display='none'"/>
       <h3 class="sol-name">Toonli</h3>
-      <p class="sol-tagline">AI Illustration Agent</p>
-      <p class="sol-desc">Transform photos into stunning cartoon-style artwork with AI-powered illustration technology guided by intuitive conversational prompts.</p>
+      <p class="sol-tagline">AI Creative Media Platform</p>
+      <p class="sol-desc">AI-powered platform for image and video generation via conversational prompts, deployed as a VisitAssist agent implementation. Full commercial feature set with multilingual delivery and an integrated affiliate commerce engine.</p>
       <ul class="sol-features">
-        <li>Image generation</li>
-        <li>Style personalization</li>
-        <li>Interactive adjustments</li>
+        <li>Multimodal image &amp; video generation</li>
+        <li>Multilingual delivery (EN/PT/ES/ZH)</li>
+        <li>Affiliate management &amp; commission tracking</li>
+        <li>FFmpeg media processing pipeline</li>
       </ul>
     </div>
     <div class="sol-card">
       <div class="sol-num">03</div>
       <img src="assets/food-trails.png" alt="Food Trails" class="sol-img" onerror="this.style.display='none'"/>
       <h3 class="sol-name">Food Trails</h3>
-      <p class="sol-tagline">Culinary Concierge</p>
-      <p class="sol-desc">Discover hidden culinary gems and create personalized food tours in your city with an intelligent agent that understands your tastes.</p>
+      <p class="sol-tagline">Culinary AI Concierge</p>
+      <p class="sol-desc">Domain-aware AI agent for culinary discovery. Understands user preferences, dietary requirements, budget, cultural interests, and location context to generate personalized gastronomic itineraries through a multi-step planning flow with typed domain models and normalized JSON responses.</p>
       <ul class="sol-features">
-        <li>Personalized curation</li>
-        <li>Location awareness</li>
-        <li>Dynamic routing</li>
+        <li>Multi-step itinerary planning</li>
+        <li>Dietary &amp; preference awareness</li>
+        <li>Typed domain models &amp; JSON normalization</li>
+        <li>Location &amp; cultural context</li>
       </ul>
     </div>
   </div>
@@ -687,32 +840,34 @@
   <div class="solutions-header reveal">
     <div>
       <p class="section-label">Pillar 02 — Intelligence</p>
-      <h2 class="section-title">RAG-based platforms.<br/>Decision support.</h2>
-      <p class="about-body" style="margin-top:1.5rem">Transform your data into actionable intelligence with custom BI dashboards and sector-specific analysis tools.</p>
+      <h2 class="section-title">RAG platforms.<br/>Actionable answers.</h2>
+      <p class="about-body" style="margin-top:1.5rem">Platforms that transform complex, specialized data into AI-queryable, searchable, decision-support products for environmental, commercial, and enterprise audiences.</p>
     </div>
   </div>
-  <div class="solutions-grid reveal">
+  <div class="solutions-grid reveal" style="grid-template-columns: repeat(2, 1fr);">
     <div class="sol-card">
       <div class="sol-num">01</div>
       <h3 class="sol-name">InsightAssist<span class="sol-tm">™</span></h3>
-      <p class="sol-tagline">Private BI Dashboards</p>
-      <p class="sol-desc">Transform your data into actionable intelligence with custom dashboards that combine retrieval-augmented AI with powerful analytics.</p>
+      <p class="sol-tagline">Private BI &amp; RAG Intelligence</p>
+      <p class="sol-desc">Hybrid search architecture combining semantic vector retrieval with keyword metadata filtering — higher relevance and precision across complex, multi-source datasets. AI-assisted query refinement before retrieval. Structured outputs ready for BI charts and executive reports, not just conversational answers.</p>
       <ul class="sol-features">
-        <li>Custom data visualization</li>
-        <li>Predictive analytics</li>
-        <li>Secure private access</li>
+        <li>Hybrid semantic + keyword search</li>
+        <li>AI-assisted query refinement</li>
+        <li>BI-ready structured outputs</li>
+        <li>Modular frontend / API / retrieval architecture</li>
       </ul>
     </div>
     <div class="sol-card">
       <div class="sol-num">02</div>
       <img src="assets/carbon-intel.png" alt="CarbonIntel" class="sol-img" onerror="this.style.display='none'"/>
-      <h3 class="sol-name">CarbonIntel</h3>
-      <p class="sol-tagline">Market Intelligence Platform</p>
-      <p class="sol-desc">Stay ahead in the carbon market with comprehensive news aggregation and business intelligence unified in a single, powerful platform.</p>
+      <h3 class="sol-name">CarbonBiz / CarbonIntel</h3>
+      <p class="sol-tagline">Carbon Market Intelligence Platform</p>
+      <p class="sol-desc">Specialized information platform for carbon market news and intelligence — translating complex policy, regulatory, and environmental data into a usable digital product. Domain-oriented information architecture with a structured filter taxonomy driven entirely by configuration, not hardcoding.</p>
       <ul class="sol-features">
-        <li>Real-time news aggregation</li>
-        <li>Industry trend analysis</li>
-        <li>Regulatory updates tracking</li>
+        <li>Config-driven filter taxonomy (region, sector, credit type, policy)</li>
+        <li>Multilingual EN/PT/ES/ZH via i18next</li>
+        <li>Persistent filter preferences across sessions</li>
+        <li>Offline PWA via service worker</li>
       </ul>
     </div>
   </div>
@@ -723,31 +878,33 @@
   <div class="solutions-header reveal">
     <div>
       <p class="section-label">Pillar 03 — Complexity Studio</p>
-      <h2 class="section-title">Immersive learning.<br/>Complex subjects.</h2>
-      <p class="about-body" style="margin-top:1.5rem">Designed educational experiences that help learners engage with difficult material through simulation, exploration, and interactive narrative.</p>
+      <h2 class="section-title">Immersive products.<br/>Difficult subjects.</h2>
+      <p class="about-body" style="margin-top:1.5rem">Educational and experiential products that combine AI, human-centered design, and architectural discipline — turning complex domains into explorable, interactive systems.</p>
     </div>
   </div>
-  <div class="solutions-grid reveal">
+  <div class="solutions-grid reveal" style="grid-template-columns: repeat(2, 1fr);">
     <div class="sol-card">
       <div class="sol-num">01</div>
       <h3 class="sol-name">CrisisLab</h3>
-      <p class="sol-tagline">Crisis Management Simulations</p>
-      <p class="sol-desc">Applied judgment under pressure. Interactive simulations designed for public policy, business schools, and leadership training to navigate complex uncertainties.</p>
+      <p class="sol-tagline">AI-Powered Crisis Simulation</p>
+      <p class="sol-desc">Deterministic rules engine paired with a structured LLM narration layer. Clear architectural separation between game logic (state machine, branching) and AI narration. OpenAI integration with TypeScript typed contracts and JSON Schema-based structured outputs — production-validated responses throughout.</p>
       <ul class="sol-features">
-        <li>Scenario branching</li>
-        <li>Real-time consequences</li>
-        <li>Analytics & debriefing</li>
+        <li>Deterministic rules engine + LLM narration layer</li>
+        <li>TypeScript typed AI contracts</li>
+        <li>JSON Schema validated outputs</li>
+        <li>Scenario branching &amp; real-time consequences</li>
       </ul>
     </div>
     <div class="sol-card">
       <div class="sol-num">02</div>
-      <h3 class="sol-name">The World</h3>
-      <p class="sol-tagline">Immersive Literary Worlds</p>
-      <p class="sol-desc">A new premium format for experiencing classic literature. Enter, navigate, and experience canonical texts visually and interactively.</p>
+      <h3 class="sol-name">Bookworld</h3>
+      <p class="sol-tagline">AI Literary Content Platform</p>
+      <p class="sol-desc">RAG pipeline built on Next.js 15 for long-form text ingestion and structured entity graph extraction — characters, places, themes, and timeline. Human-in-the-loop editorial workflow with distinct stages: intake, extraction, synthesis, enrichment, review, and publication.</p>
       <ul class="sol-features">
-        <li>Explorable environments</li>
-        <li>Contextual insights</li>
-        <li>Guided meaning-making</li>
+        <li>Semantic RAG for long-form literary content</li>
+        <li>Entity graph extraction (characters, places, themes)</li>
+        <li>Human-in-the-loop editorial workflow</li>
+        <li>Structured knowledge synthesis pipeline</li>
       </ul>
     </div>
   </div>
@@ -756,96 +913,129 @@
 <!-- PIPELINE -->
 <section id="pipeline">
   <div class="pipeline-header reveal">
-    <p class="section-label">How we work</p>
-    <h2 class="section-title">Three-pillar methodology.</h2>
+    <p class="section-label">How we build</p>
+    <h2 class="section-title">Retrieve. Reason. Deliver.</h2>
   </div>
   <div class="pipeline-flow reveal">
     <div class="pipe-step">
       <div class="pipe-num">01</div>
       <div class="pipe-title">Retrieve</div>
-      <p class="pipe-desc">Advanced semantic search across your structured knowledge base, ensuring relevant information is always available.</p>
+      <p class="pipe-desc">Semantic vector search across domain-specific, structured knowledge bases — ensuring the right information is always surfaced before the model reasons over it.</p>
       <ul class="pipe-list">
-        <li>— Vector-based semantic search</li>
-        <li>— Multi-source data integration</li>
-        <li>— Real-time indexing</li>
-        <li>— Context-aware retrieval</li>
+        <li>— Semantic vector retrieval</li>
+        <li>— Hybrid keyword + semantic search</li>
+        <li>— Metadata filtering</li>
+        <li>— AI-assisted query refinement</li>
       </ul>
     </div>
     <div class="pipe-arrow">→</div>
     <div class="pipe-step">
       <div class="pipe-num">02</div>
       <div class="pipe-title">Reason</div>
-      <p class="pipe-desc">Sophisticated AI models that understand context, draw connections, and generate insights from complex data patterns.</p>
+      <p class="pipe-desc">Frontier models operate over retrieved, grounded context — with typed contracts and JSON schema validation ensuring structured, production-safe outputs at every step.</p>
       <ul class="pipe-list">
-        <li>— Natural language processing</li>
-        <li>— Contextual understanding</li>
-        <li>— Pattern recognition</li>
-        <li>— Logical inference</li>
+        <li>— Frontier LLM integration</li>
+        <li>— Structured output contracts</li>
+        <li>— JSON Schema validation</li>
+        <li>— Deterministic logic separation</li>
       </ul>
     </div>
     <div class="pipe-arrow">→</div>
     <div class="pipe-step">
       <div class="pipe-num">03</div>
       <div class="pipe-title">Deliver</div>
-      <p class="pipe-desc">Present actionable insights through intuitive interfaces — conversational chat, visual dashboards, or API integrations.</p>
+      <p class="pipe-desc">Actionable results through the right channel — conversational interfaces, BI dashboards, PWAs, or API integrations — with multilingual support and offline capability where needed.</p>
       <ul class="pipe-list">
-        <li>— Multi-channel delivery</li>
-        <li>— Personalized responses</li>
-        <li>— Interactive visualizations</li>
-        <li>— Seamless integration</li>
+        <li>— Multi-channel deployment</li>
+        <li>— BI-ready structured outputs</li>
+        <li>— PWA &amp; offline-first</li>
+        <li>— Multilingual (EN/PT/ES/ZH)</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
+<!-- FEATURES / ENGINEERING PRINCIPLES -->
 <section id="features">
   <div class="features-header reveal">
-    <p class="section-label">Why Apis-IA</p>
-    <h2 class="section-title">Built for precision.<br/>Designed for impact.</h2>
+    <p class="section-label">Engineering Principles</p>
+    <h2 class="section-title">How we think.<br/>Why it holds up.</h2>
   </div>
   <div class="features-grid reveal">
     <div class="feat-card">
       <div class="feat-icon">AI</div>
       <h4 class="feat-title">Domain-Focused AI</h4>
-      <p class="feat-desc">Customized for your sector with specialized knowledge, terminology, and workflows — not a generic model.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">⇄</div>
-      <h4 class="feat-title">Flexible Delivery</h4>
-      <p class="feat-desc">Public chatbots or private BI dashboards — we tailor the output layer to your users and infrastructure.</p>
+      <p class="feat-desc">We don't apply generic models to specialized problems. Every deployment is configured with domain-specific knowledge, terminology, and retrieval logic tailored to its context.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">RAG</div>
-      <h4 class="feat-title">RAG Pipeline</h4>
-      <p class="feat-desc">Retrieval-augmented generation ensures accuracy and reliability — zero hallucinations on grounded data.</p>
+      <h4 class="feat-title">RAG as Standard</h4>
+      <p class="feat-desc">Retrieval-augmented generation is our default for any system requiring factual precision. Hallucination is eliminated by grounding every response in indexed, verified source material.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">→</div>
+      <h4 class="feat-title">Production-First Delivery</h4>
+      <p class="feat-desc">Every project includes build validation, environment configuration, deployment documentation, and a clear path from MVP to enterprise hardening — not just a working prototype.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">{}</div>
+      <h4 class="feat-title">Structured Outputs</h4>
+      <p class="feat-desc">Every AI-assisted feature uses typed contracts, JSON schemas, and validated response parsing — reducing operational risk and enabling deterministic rendering across surfaces.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">⇄</div>
+      <h4 class="feat-title">Separation of Concerns</h4>
+      <p class="feat-desc">Deterministic logic — state machines, rules engines, validation — is always separated from probabilistic AI layers. As evidenced in CrisisLab and Bookworld, the two never entangle.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">∞</div>
-      <h4 class="feat-title">Full Customization</h4>
-      <p class="feat-desc">Scalable solutions that grow with your business. From MVP to enterprise scale without architectural rewrites.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">UX</div>
-      <h4 class="feat-title">Human-Centered Design</h4>
-      <p class="feat-desc">Maximum usability with intuitive interfaces for all user levels. Technology that feels effortless.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">🔒</div>
-      <h4 class="feat-title">Enterprise Security</h4>
-      <p class="feat-desc">Bank-level encryption and data protection standards. Your data stays yours, always.</p>
+      <h4 class="feat-title">Scalable Platform Thinking</h4>
+      <p class="feat-desc">We build platforms, not one-off solutions. The 52+ VisitAssist deployments running from a single architecture are the clearest proof of this principle in production.</p>
     </div>
   </div>
 </section>
 
-<!-- APPS SECTION REMOVED - INTEGRATED INTO PILLARS -->
+<!-- ADDITIONAL PORTFOLIO -->
+<section id="portfolio">
+  <div class="portfolio-header reveal">
+    <p class="section-label">More from the portfolio</p>
+    <h2 class="section-title">Full-stack. Production-grade.</h2>
+    <p class="about-body" style="margin-top:1.5rem; max-width:60ch">Beyond our flagship platforms, Apis-IA has independently delivered complete digital products across education, public safety, trade intelligence, and creative tooling.</p>
+  </div>
+  <div class="portfolio-grid reveal">
+    <div class="port-card">
+      <div class="port-cluster">Full-Stack Product</div>
+      <div class="port-name">LITERAH</div>
+      <div class="port-stack">Python / Flask · Supabase / PostgreSQL</div>
+      <p class="port-desc">Multi-profile educational reading platform supporting students, teachers, principals, and administrators — each with differentiated dashboards and role-based access. Includes quiz system with question banks, reading progress telemetry, and SQL migrations with RPC functions.</p>
+    </div>
+    <div class="port-card">
+      <div class="port-cluster">Full-Stack Product</div>
+      <div class="port-name">Vayya</div>
+      <div class="port-stack">React · Supabase · Real-time</div>
+      <p class="port-desc">Personal safety app (MVP) with real-time security sessions, a four-state SOS machine (triggered → sent → acknowledged → resolved), encrypted evidence vault with biometric/PIN unlock, and a discreet appearance mode with rapid exit and redacted notifications.</p>
+    </div>
+    <div class="port-card">
+      <div class="port-cluster">Data Intelligence</div>
+      <div class="port-name">Trade Intelligence Explorer</div>
+      <div class="port-stack">React · TypeScript · Node / Express</div>
+      <p class="port-desc">Full-stack explorer combining UN Comtrade / ComexStat international trade data with trade fair exhibitor datasets in a unified interface. Defensive JSON parsing, deterministic deduplication by compound key, faceted filters, full-text search, and CSV export.</p>
+    </div>
+    <div class="port-card">
+      <div class="port-cluster">PWA / Frontend</div>
+      <div class="port-name">CineTrip</div>
+      <div class="port-stack">React 18 · TypeScript · PWA</div>
+      <p class="port-desc">Installable PWA for discovering real filming locations. Component-based architecture with typed domain models for locations and routes, client-side search and filtering, custom service worker offline cache, and static hosting on Vercel.</p>
+    </div>
+  </div>
+</section>
 
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-left reveal">
     <p class="section-label">Let's talk</p>
-    <h2 class="section-title">Ready to transform your <em>data</em>?</h2>
-    <p class="contact-note">Tell us about your challenge. We'll respond within one business day with an honest assessment of how we can help.</p>
+    <h2 class="section-title">Ready to build something <em>real</em>?</h2>
+    <p class="contact-note">Tell us about your challenge. We respond within one business day with an honest assessment of how we can help — from MVP scoping to enterprise-scale architecture.</p>
   </div>
   <form class="contact-form reveal" onsubmit="handleSubmit(event)">
     <div class="form-row">
@@ -862,16 +1052,17 @@
       <label>I'm interested in</label>
       <select>
         <option value="">Select an area of interest</option>
-        <option>Agents (e.g. VisitAssist)</option>
-        <option>Intelligence (e.g. InsightAssist)</option>
-        <option>Complexity Studio (e.g. CrisisLab)</option>
-        <option>Custom AI Development</option>
-        <option>AI Strategy Consulting</option>
+        <option>AI Agents (e.g. VisitAssist, GuestAssist)</option>
+        <option>Intelligence Platforms (e.g. InsightAssist, CarbonIntel)</option>
+        <option>Complexity Studio (e.g. CrisisLab, Bookworld)</option>
+        <option>Custom AI / LLM Integration</option>
+        <option>Full-Stack Product Development</option>
+        <option>AI Strategy &amp; Architecture Consulting</option>
       </select>
     </div>
     <div class="form-field">
       <label>Tell us about your project</label>
-      <textarea rows="4" placeholder="Describe your data challenge or what you're trying to build..."></textarea>
+      <textarea rows="4" placeholder="Describe your challenge or what you're trying to build..."></textarea>
     </div>
     <button type="submit" class="form-submit">Send message →</button>
   </form>
@@ -886,9 +1077,10 @@
     <a href="#agents">Agents</a>
     <a href="#intelligence">Intelligence</a>
     <a href="#complexity">Complexity Studio</a>
+    <a href="#portfolio">Portfolio</a>
     <a href="#contact">Contact</a>
   </div>
-  <div class="footer-copy">© 2025 Apis-IA. All rights reserved.</div>
+  <div class="footer-copy">© 2026 Apis-IA. All rights reserved.</div>
 </footer>
 
 <script>
